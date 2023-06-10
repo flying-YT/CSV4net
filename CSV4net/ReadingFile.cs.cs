@@ -3,10 +3,10 @@
 namespace CSV4net;
 public class ReadingFile
 {
-    private static List<string> ReadFile(string path)
+    private static List<string> ReadFile(string path, string encoding="utf-8")
     {
         List<string> list = new List<string>();
-        using (StreamReader sr = new StreamReader(path))
+        using (StreamReader sr = new StreamReader(path, Encoding.GetEncoding(encoding)))
         {
             string line = "";
             while ((line = sr.ReadLine()) != null)
@@ -17,20 +17,21 @@ public class ReadingFile
         return list;
     }
 
-    public static List<string[]> GetCSV(string path, char sepalate=',', string encoding="utf-8")
+    public static List<string[]> GetCSV(string path, char separate=',', string encoding="utf-8")
     {
-        var list = ReadFile(path);
         var returnList = new List<string[]>();
-        var sepalateList = new List<string>();
+        var list = ReadFile(path, encoding);
+
+        var separateList = new List<string>();
         StringBuilder sb = new StringBuilder();
-        bool isBool = false;
+        bool isDoubleQuotation = false;
         foreach(var line in list)
         {
             foreach(char c in line)
             {
-                if(c == sepalate && !isBool)
+                if(c == separate && !isDoubleQuotation)
                 {  
-                    sepalateList.Add(sb.ToString());
+                    separateList.Add(sb.ToString());
                     sb = new StringBuilder();
                 }
                 else
@@ -38,107 +39,25 @@ public class ReadingFile
                     sb.Append(c);
                     if(c == '"')
                     {
-                        isBool = !isBool;
+                        isDoubleQuotation = !isDoubleQuotation;
                     }
                 }
             }
 
-            if(sb.Length != 0 && !isBool)
+            if(sb.Length != 0 && !isDoubleQuotation)
             {
-                sepalateList.Add(sb.ToString());
+                separateList.Add(sb.ToString());
                 sb = new StringBuilder();
 
-                var strArray = new string[sepalateList.Count];
-                int index = 0;
-                foreach(var str in sepalateList)
+                var strArray = new string[separateList.Count];
+                foreach (var item in separateList.Select((value, index) => new { value, index }))
                 {
-                    strArray[index] = str;
-                    index++;
+                    strArray[item.index] = item.value;
                 }
-                sepalateList = new List<string>();
+                separateList = new List<string>();
                 returnList.Add(strArray);
             }
         }
         return returnList;
-    }
-
-/*
-    public static List<string> GetCSV(string path)
-    {
-        bool isNormal = true;
-        using (StreamReader sr = new StreamReader(path))
-        {
-            string line = "";
-            while ((line = sr.ReadLine()) != null)
-            {
-                if(line.Contains("\",\""))
-                {
-                    isNormal = false;
-                }
-                else
-                {
-                    isNormal = true;
-                }
-                break;
-            }
-        }
-
-        if(isNormal)
-        {
-            return NormalCSV(path);
-        }
-        else
-        {
-            return DoubleQuotationCSV(path);
-        } 
-    }
-*/
-    private static List<string> NormalCSV(string path)
-    {
-        List<string> list = new List<string>();
-        using (StreamReader sr = new StreamReader(path))
-        {
-            string line = "";
-            while ((line = sr.ReadLine()) != null)
-            {
-                list.Add(line);
-            }
-        }
-        return list;
-    }
-
-    private static List<string> DoubleQuotationCSV(string path)
-    {
-        List<string> list = new List<string>();
-        using (StreamReader sr = new StreamReader(path))
-        {
-            string line = "";
-            StringBuilder sb = new StringBuilder();
-            while ((line = sr.ReadLine()) != null)
-            {
-                if(sb.Length == 0)
-                {
-                    sb.Append(line);
-                }
-                else
-                {
-                    if(line[0] != '"')
-                    {
-                        sb.Append(line);
-                    }
-                    else
-                    {
-                        list.Add(sb.ToString());
-                        sb = new StringBuilder(line);
-                    }
-                }
-            }
-
-            if(sb.Length != 0)
-            {
-                list.Add(sb.ToString());
-            }
-        }
-        return list;
     }
 }
