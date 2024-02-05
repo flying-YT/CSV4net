@@ -3,7 +3,8 @@
 namespace CSV4net;
 public class ReadingFile
 {
-    public static string version = "1.0";
+    public static string version = "1.1";
+    
     private static List<string> ReadFile(string path, string encoding="utf-8")
     {
         List<string> list = new List<string>();
@@ -45,7 +46,7 @@ public class ReadingFile
                 }
             }
 
-            if(sb.Length != 0 && !isDoubleQuotation)
+            if(!isDoubleQuotation)
             {
                 separateList.Add(sb.ToString());
                 sb = new StringBuilder();
