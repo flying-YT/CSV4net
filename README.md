@@ -1,5 +1,6 @@
-# Transcript4CSV
-"CSV4net" A is a CSV file reading library for .net.
+# CSV4net
+"CSV4net" is a CSV file reading library for .net.
+"CSV4net" is compiled with .net6.
 
 ## Overview
 - By specifying the path of a CSV file, read the file data.
