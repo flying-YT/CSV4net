@@ -3,6 +3,7 @@
 namespace CSV4net;
 public class ReadingFile
 {
+    public static string version = "1.0";
     private static List<string> ReadFile(string path, string encoding="utf-8")
     {
         List<string> list = new List<string>();
