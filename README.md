@@ -16,11 +16,11 @@
 3. Loading the method<br>
     write the method
     ```
-    List<string> list = ReadingFile.GetCSV("csv file path");
+    List<string[]> list = ReadingFile.GetCSV("csv file path");
     ```
 - If you specify a delimiter or character code<br>
     ```
-    List<string> list = ReadingFile.GetCSV("csv file path", ',', "utf-8");
+    List<string[]> list = ReadingFile.GetCSV("csv file path", ',', "utf-8");
     ```
 
 ## Lisence
