@@ -40,7 +40,9 @@ public class WritingFile
                     }
                 }
             }
-            writeList.Add(sb.ToString()[..^1]);
+            //writeList.Add(sb.ToString()[..^1]);
+            string text = sb.ToString();
+            writeList.Add(text.Remove(text.Length - 1));
         }
         WriteFile(writeList, path, encoding);
     }
