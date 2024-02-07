@@ -4,8 +4,8 @@ namespace CSV4net;
 public class ReadingFile
 {
     public static string version = "1.1";
-    
-    private static List<string> ReadFile(string path, string encoding="utf-8")
+
+    public static List<string> ReadFile(string path, string encoding="utf-8")
     {
         List<string> list = new List<string>();
         using (StreamReader sr = new StreamReader(path, Encoding.GetEncoding(encoding)))
