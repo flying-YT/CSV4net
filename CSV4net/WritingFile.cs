@@ -18,7 +18,7 @@ public class WritingFile
 
     public static void WriteCSV(List<string[]> list, string path, bool isDoubleQuotation=false, char separate=',', string encoding="utf-8")
     {
-        list<string> writeList = new list<string>();
+        List<string> writeList = new List<string>();
         foreach (string[] strArray in list)
         {
             StringBuilder sb = new StringBuilder();
@@ -40,7 +40,7 @@ public class WritingFile
                     }
                 }
             }
-            writeList.Add(sb.ToString().[..^1]);
+            writeList.Add(sb.ToString()[..^1]);
         }
         WriteFile(writeList, path, encoding);
     }

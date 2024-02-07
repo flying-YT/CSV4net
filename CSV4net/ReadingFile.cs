@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CSV4net;
 public class ReadingFile
@@ -54,7 +55,15 @@ public class ReadingFile
                 var strArray = new string[separateList.Count];
                 foreach (var item in separateList.Select((value, index) => new { value, index }))
                 {
-                    strArray[item.index] = item.value;
+                    Match m = Regex.Match(item.value, "\"(?<data>.*?)\"");
+                    if(m.Success)
+                    {
+                        strArray[item.index] = m.Groups["data"].Value;
+                    }
+                    else
+                    {
+                        strArray[item.index] = item.value;
+                    }
                 }
                 separateList = new List<string>();
                 returnList.Add(strArray);
