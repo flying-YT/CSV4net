@@ -47,7 +47,11 @@ public class ReadingFile
                 }
             }
 
-            if(!isDoubleQuotation)
+            if(isDoubleQuotation)
+            {
+                sb.Append("\r\n");
+            }
+            else
             {
                 separateList.Add(sb.ToString());
                 sb = new StringBuilder();
