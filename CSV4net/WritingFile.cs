@@ -3,7 +3,7 @@ using System.Text;
 namespace CSV4net;
 public class WritingFile
 {
-    public static string version = "1.1";
+    public static string version = "1.2";
 
     public static void WriteFile(List<string> list, string path, string encoding="utf-8")
     {

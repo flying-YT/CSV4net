@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace CSV4net;
 public class ReadingFile
 {
-    public static string version = "1.1";
+    public static string version = "1.2";
 
     public static List<string> ReadFile(string path, string encoding="utf-8")
     {
