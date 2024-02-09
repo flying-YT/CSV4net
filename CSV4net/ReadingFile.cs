@@ -59,7 +59,7 @@ public class ReadingFile
                 var strArray = new string[separateList.Count];
                 foreach (var item in separateList.Select((value, index) => new { value, index }))
                 {
-                    Match m = Regex.Match(item.value, "\"(?<data>.*?)\"");
+                    Match m = Regex.Match(item.value, "\"(?<data>(.|\\r\\n)*?)\"");
                     if(m.Success)
                     {
                         strArray[item.index] = m.Groups["data"].Value;
